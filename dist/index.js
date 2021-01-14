@@ -1398,17 +1398,21 @@ const repo = github.context.repo;
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
+            const baseName = core.getInput(enums_1.ActionInputs.BRANCH_BASE);
+            const compareName = core.getInput(enums_1.ActionInputs.BRANCH_COMPARE);
             const branches = yield octokit.repos
                 .listBranches(Object.assign({}, repo))
                 .then(response => response.data);
-            const base = branches.find((b) => b.name === core.getInput(enums_1.ActionInputs.BRANCH_BASE));
-            const compare = branches.find((b) => b.name === core.getInput(enums_1.ActionInputs.BRANCH_COMPARE));
+            const base = branches.find((b) => b.name === baseName);
+            const compare = branches.find((b) => b.name === compareName);
             if (base == null) {
-                return core.setFailed(`Base branch "${base}" do not exist on repository ${repo.owner}/${repo.repo}`);
+                return core.setFailed(`Base branch "${baseName}" do not exist on repository ${repo.owner}/${repo.repo}`);
             }
             if (compare == null) {
-                return core.setFailed(`Compare branch "${compare}" do not exist on repository ${repo.owner}/${repo.repo}`);
+                return core.setFailed(`Compare branch "${compareName}" do not exist on repository ${repo.owner}/${repo.repo}`);
             }
+            core.debug(`${baseName} is at ${base.commit} and ${compareName} is at ${compare.commit}`);
+            core.debug(`result is ${base.commit === compare.commit}`);
             return core.exportVariable('COMPARE_RESULT_SAME', base.commit === compare.commit);
         }
         catch (err) {
