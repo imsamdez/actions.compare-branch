@@ -1411,8 +1411,8 @@ function run() {
             if (compare == null) {
                 return core.setFailed(`Compare branch "${compareName}" do not exist on repository ${repo.owner}/${repo.repo}`);
             }
-            core.debug(`${baseName} is at ${base.commit} and ${compareName} is at ${compare.commit}`);
-            core.debug(`result is ${base.commit === compare.commit}`);
+            core.debug(`${baseName} is at ${base.commit.sha} and ${compareName} is at ${compare.commit.sha}`);
+            core.debug(`result is ${base.commit.sha === compare.commit.sha}`);
             return core.exportVariable('COMPARE_RESULT_SAME', base.commit === compare.commit);
         }
         catch (err) {
