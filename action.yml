@@ -1,0 +1,19 @@
+name: 'imsamdez/actions.compare-branch'
+description: 'Compare two branches and export the result into an environment variable'
+author: 'samdez'
+branding:
+  icon: 'minimize-2'
+  color: 'purple'
+inputs:
+  base:
+    required: true
+    description: 'Branch to compare'
+  compare:
+    required: true
+    description: 'Branch to compare'
+  github_token:
+    required: true
+    description: 'A github token'
+runs:
+  using: 'node12'
+  main: 'dist/index.js'

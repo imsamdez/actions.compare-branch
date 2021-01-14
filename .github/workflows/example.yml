@@ -1,0 +1,16 @@
+name: 'test'
+on:
+  workflow_dispatch:
+
+jobs:
+  example:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Compare'
+        uses: ./
+        with:
+          base: test_base
+          compare: test_compare
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+      - name: 'Result'
+        run: echo Result is $COMPARE_RESULT_SAME
