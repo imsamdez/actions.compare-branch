@@ -1413,7 +1413,7 @@ function run() {
             }
             core.debug(`${baseName} is at ${base.commit.sha} and ${compareName} is at ${compare.commit.sha}`);
             core.debug(`result is ${base.commit.sha === compare.commit.sha}`);
-            return core.exportVariable('COMPARE_RESULT_SAME', base.commit === compare.commit);
+            return core.exportVariable('COMPARE_RESULT_SAME', base.commit.sha === compare.commit.sha);
         }
         catch (err) {
             return core.setFailed(`Compare failed! ${err.message}`);

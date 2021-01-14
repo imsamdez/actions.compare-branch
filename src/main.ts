@@ -32,7 +32,7 @@ export async function run(): Promise<void> {
     core.debug(`result is ${base.commit.sha === compare.commit.sha}`);
     return core.exportVariable(
       'COMPARE_RESULT_SAME',
-      base.commit === compare.commit
+      base.commit.sha === compare.commit.sha
     );
   } catch (err) {
     return core.setFailed(`Compare failed! ${err.message}`);
