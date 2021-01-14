@@ -18,7 +18,7 @@ jobs:
         run: echo Result is $COMPARE_RESULT_SAME
       - name: 'Foo (executed if branch are at same commit)'
         run: echo Branch are at same commit!!!
-        if: env.COMPARE_RESULT_SAME === true
+        if: env.COMPARE_RESULT_SAME
       - name: 'Bar (executed if branch are at diff commit)'
         run: echo Branch are not at same commit.
-        if: env.COMPARE_RESULT_SAME === false
+        if: env.COMPARE_RESULT_SAME
