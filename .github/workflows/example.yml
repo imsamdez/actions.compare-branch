@@ -9,8 +9,8 @@ jobs:
       - name: 'Compare'
         uses: ./
         with:
-          base: test_base
-          compare: test_compare
+          base: example_base
+          compare: example_compare
           github_token: ${{ secrets.GITHUB_TOKEN }}
       - name: 'Result'
         run: echo Result is $COMPARE_RESULT_SAME
