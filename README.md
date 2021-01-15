@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: 'Compare'
-        uses: imsamdez/actions.compare-branch@1.0.1
+        uses: imsamdez/actions.compare-branch@1.0.3
         with:
           base: master
           compare: prod
@@ -35,7 +35,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: 'Compare'
-        uses: imsamdez/actions.compare-branch@1.0.1
+        uses: imsamdez/actions.compare-branch@1.0.3
         with:
           base: master
           compare: prod
