@@ -1,52 +1,52 @@
-# Merge branch
+# compare-branch
 
-A simple Github Action that merge a branch (compare) into another one (base)
+A simple Github Action that compare a branch with another
 
 ## The example speaks better than the finest speeches
 
 ```yml
-name: Scheduled merge master in stage
-
+name: 'Example'
 on:
-  schedule:
-    - cron: '0 4 * * *' # Every day at 4am
+  workflow_dispatch:
 
 jobs:
-  merge:
+  compare:
     runs-on: ubuntu-latest
-
     steps:
-      - name: 'Merge'
-        id: merge
-        uses: imsamdez/actions.merge-branch@v1.0.6
+      - name: 'Compare'
+        uses: imsamdez/actions.compare-branch@1.0.1
         with:
-          base: stage # Change this according to your need
-          compare: master # Change this according to your need
+          base: master
+          compare: prod
           github_token: ${{ secrets.GITHUB_TOKEN }}
 ```
 
-## Wait for CI
+## Use result
 
-You can pass the `wait_for_ci` options. At the moment, this options only checks if compared branch is in _ready_ state. If not, the action will fail (a retrial implementation may come later).
+This action creates a Github Action environment variable `COMPARE_RESULT_SAME` that you can use with others action steps (see example bellow)
 
 ```yml
-name: Scheduled merge master in stage
-
+name: 'Example'
 on:
-  schedule:
-    - cron: '0 4 * * *' # Every day at 4am
+  workflow_dispatch:
 
 jobs:
-  merge:
+  compare:
     runs-on: ubuntu-latest
-
     steps:
-      - name: 'Merge'
-        id: merge
-        uses: imsamdez/actions.merge-branch@main
+      - name: 'Compare'
+        uses: imsamdez/actions.compare-branch@1.0.1
         with:
-          base: stage
-          compare: master
+          base: master
+          compare: prod
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          wait_for_ci: true # Here
+      # Make use of the result with COMPARE_RESULT_SAME env variable
+      - name: 'Result'
+        run: echo Result is $COMPARE_RESULT_SAME
+      - name: 'Foo (executed if branches are at same commit)'
+        run: echo Branches are at same commit!!!
+        if: env.COMPARE_RESULT_SAME == 'true'
+      - name: 'Bar (executed if branches are at diff commit)'
+        run: echo Branches are not at same commit.
+        if: env.COMPARE_RESULT_SAME == 'false'
 ```
