@@ -1,6 +1,6 @@
 {
   "name": "actions.compare-branch",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Compare two branches and export the result into an environment variable",
   "main": "lib/main.js",
   "scripts": {
